@@ -1,4 +1,4 @@
-Chemistry::Ring version 0.19
+Chemistry::Ring version 0.20
 ============================
 
 The Chemistry::Ring module provides some basic methods for representing a ring.
@@ -13,9 +13,10 @@ unambiguous set of rings for cases such as cubane.
 
 This module is part of the PerlMol project, L<http://www.perlmol.org/>.
 
-CHANGES SINCE VERSION 0.18
-    - Fixed memory leak.
-    - Added 'ring/rings' attribute to molecule on aromatize_mol.
+CHANGES SINCE VERSION 0.19
+        - Silence some warnings.
+        - Minor changes by Liliana Felix Avila for compatibility with 
+          Chemistry::Artificial.
 
 INSTALLATION
 
@@ -34,7 +35,7 @@ This module requires these other modules and libraries:
 
 COPYRIGHT AND LICENSE
 
-Copyright (C) 2005 Ivan Tubert-Brohman <itub@cpan.org>
+Copyright (C) 2009 Ivan Tubert-Brohman <itub@cpan.org>
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 

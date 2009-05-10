@@ -1,6 +1,6 @@
 package Chemistry::Ring::Find;
 
-$VERSION = 0.19;
+$VERSION = 0.20;
 # $Id$
 
 =head1 NAME
@@ -58,6 +58,7 @@ nothing is exported by default.
 
 use strict;
 use warnings;
+no  warnings qw(recursion);
 use Chemistry::Ring;
 
 our @ISA = qw(Exporter);
@@ -108,6 +109,7 @@ If true, find each ring twice (forwards and backwards). Defaults to false.
 # $origin is an atom
 # options: min, max, size, all, mirror, exclude
 sub find_ring {
+    no warnings qw(uninitialized);
     my ($origin, %opts) = @_;
     my $min_size = $opts{min} || $opts{size} || 0;
     my $max_size = $opts{max} || $opts{size};
@@ -139,11 +141,21 @@ sub find_ring {
             next if exists $exclude{$nei};
             print "  -> $nei\n" if $DEBUG;
             if ($paths{$nei}) {
+                # a hypothetical check_collision() would have to do this:
+                # %paths, $min_size, $max_size, $used_end_nodes
+                # %bond_paths, $required_bond, @rings
+                #  check_size
+                #  check_redundant
+                #  check_required_bond
+                #  check_contains_ring
+                #  push
+
                 print "found a path collision... " if $DEBUG;
                 # check to make sure that the ring really started at $origin
                 # and the size is what was requested
                 my $size = @{$paths{$nei}} + @{$paths{$a}} - 1;
-                if($paths{$nei}[1] != $paths{$a}[1]
+                #if($paths{$nei}[1] != $paths{$a}[1]
+                if($paths{$nei}[1] ne $paths{$a}[1]
                     and $size >= $min_size
                     and !$max_size || $size <= $max_size)
                 {
@@ -159,7 +171,9 @@ sub find_ring {
                         reverse @{$bond_paths{$nei}});
                     if ($required_bond 
                         and not grep {$_ eq $required_bond} @bonds) {
-                        print "does not include required bond\n" if $DEBUG;
+                        print "does not include required bond ("
+                            . join(" ", $required_bond->atoms)
+                            . ")\n" if $DEBUG;
                         next;
                     }
                     if (contains_ring(\@atoms, \@rings)) {
@@ -256,6 +270,7 @@ sub find_rings {
         next if $visited->{$atom};
         push @ring_bonds, find_ring_bonds($mol, \%opts, $atom, $visited);
     }
+    #print "rb($_; @{$_->{atoms}})\n" for @ring_bonds;
     my @rings;
     my $n_rings = @ring_bonds;
     #print "cyclomatic number=$n_rings\n";
@@ -264,15 +279,19 @@ sub find_rings {
     }
     my %seen;
     my @ring_keys = map { join " ", sort $_->atoms } @rings;
+    #print "key($_)\n" for @ring_keys;
     @seen{@ring_keys} = @rings;
     @rings = sort { $a->atoms <=> $b->atoms } values %seen;
     if (!$opts{sssr} and @rings > $n_rings) {
         $n_rings++ if $rings[$n_rings]->atoms == $rings[$n_rings-1]->atoms;
     }
-    splice @rings, $n_rings;
+    splice @rings, $n_rings if defined $rings[$n_rings];
+    #splice @rings, $n_rings;
     @rings;
 }
 
+# find a set of "ring closure bonds" by doing a depth-first search
+# it will find a number of bonds equal to the cyclomatic number
 sub find_ring_bonds {
     my ($mol, $opts, $atom, $visited) = @_;
 
@@ -281,7 +300,8 @@ sub find_ring_bonds {
     for my $bn ($atom->bonds_neighbors) {
         my $nei  = $bn->{to};
         my $bond = $bn->{bond};
-        next if $visited->{$bond};
+        #next if $visited->{$bond};
+        next if not defined $bond or $visited->{$bond};
         $visited->{$bond}  = 1;
         if ($visited->{$nei}) { # closed ring
             #print "closing ring\n";
@@ -305,7 +325,7 @@ simple rings and some bridged rings. It never finds fused rings (which is good).
 
 =head1 VERSION
 
-0.19
+0.20
 
 =head1 SEE ALSO
 
@@ -317,7 +337,7 @@ Ivan Tubert-Brohman E<lt>itub@cpan.orgE<gt>
 
 =head1 COPYRIGHT
 
-Copyright (c) 2005 Ivan Tubert-Brohman. All rights reserved. This program is
+Copyright (c) 2009 Ivan Tubert-Brohman. All rights reserved. This program is
 free software; you can redistribute it and/or modify it under the same terms as
 Perl itself.
 

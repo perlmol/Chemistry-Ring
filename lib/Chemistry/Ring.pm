@@ -1,5 +1,5 @@
 package Chemistry::Ring;
-$VERSION = '0.19';
+$VERSION = '0.20';
 #$Id$
 
 =head1 NAME
@@ -137,7 +137,7 @@ sub plane {
 =item $ring->is_aromatic
 
 Naively guess whether ring is aromatic from the molecular graph, with a method
-based on Hückel's rule. This method is not very accurate, but works for simple
+based on Huckel's rule. This method is not very accurate, but works for simple
 molecules. Returns true or false.
 
 =cut
@@ -220,7 +220,7 @@ sub aromatize_mol {
 
 =head1 VERSION
 
-0.19
+0.20
 
 =head1 SEE ALSO
 
@@ -233,7 +233,7 @@ Ivan Tubert-Brohman <itub@cpan.org>
 
 =head1 COPYRIGHT
 
-Copyright (c) 2005 Ivan Tubert-Brohman. All rights reserved. This program is
+Copyright (c) 2009 Ivan Tubert-Brohman. All rights reserved. This program is
 free software; you can redistribute it and/or modify it under the same terms as
 Perl itself.
 
