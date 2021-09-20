@@ -69,7 +69,7 @@ our $DEBUG = 0;
 
 =item find_ring($origin, %opts)
 
-Find the smallest ring containg $origin, which may be either an atom or a bond.
+Find the smallest ring containing $origin, which may be either an atom or a bond.
 Returns a Chemistry::Ring object. Options:
 
 =over

@@ -90,7 +90,7 @@ EOF
 
 =item $ring->centroid
 
-Returs a vector with the centroid, defined as the average of the coordinates
+Returns a vector with the centroid, defined as the average of the coordinates
 of all the atoms in the ring. The vecotr is a L<Math::VectorReal> object.
 
 =cut
