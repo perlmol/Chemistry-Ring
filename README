@@ -11,8 +11,6 @@ algorithm, and it can find all rings that contain a given atom or bond, the
 Smallest Set of Smallest Rings (SSSR), or the "almost SSSR", which is an
 unambiguous set of rings for cases such as cubane.
 
-This module is part of the PerlMol project, L<http://www.perlmol.org/>.
-
 CHANGES SINCE VERSION 0.19
         - Silence some warnings.
         - Minor changes by Liliana Felix Avila for compatibility with 
