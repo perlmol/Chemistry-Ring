@@ -116,7 +116,12 @@ vector is a L<Math::VectorReal> object.
 
 sub plane {
     my $self = shift;
-    my $reg = Statistics::Regression->new(3, "plane for $self", [qw(b mx my)]);
+    my $reg;
+    if( $Statistics::Regression::VERSION < 0.52 ) {
+        $reg = Statistics::Regression->new(3, "plane for $self", [qw(b mx my)]);
+    } else {
+        $reg = Statistics::Regression->new("plane for $self", [qw(b mx my)]);
+    }
     for my $atom ($self->atoms) {
         my ($x, $y, $z) = $atom->coords->array;
         $reg->include($z, [1.0, $x, $y]);
