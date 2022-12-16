@@ -1,6 +1,7 @@
 package Chemistry::Ring;
-$VERSION = '0.20';
-#$Id$
+
+# VERSION
+# $Id$
 
 =head1 NAME
 

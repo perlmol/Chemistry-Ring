@@ -1,6 +1,6 @@
 package Chemistry::Ring::Find;
 
-$VERSION = '0.20';
+# VERSION
 # $Id$
 
 =head1 NAME
