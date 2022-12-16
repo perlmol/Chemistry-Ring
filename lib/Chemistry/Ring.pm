@@ -222,11 +222,13 @@ sub aromatize_mol {
     @rings;
 }
 
+1;
+
 =back
 
-=head1 VERSION
+=head1 SOURCE CODE REPOSITORY
 
-0.20
+L<https://github.com/perlmol/Chemistry-Ring>
 
 =head1 SEE ALSO
 
@@ -244,4 +246,3 @@ free software; you can redistribute it and/or modify it under the same terms as
 Perl itself.
 
 =cut
-

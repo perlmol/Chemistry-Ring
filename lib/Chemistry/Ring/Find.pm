@@ -323,13 +323,13 @@ sub find_ring_bonds {
 The "all" option in find_ring doesn't quite work as expected. It finds all
 simple rings and some bridged rings. It never finds fused rings (which is good).
 
-=head1 VERSION
+=head1 SOURCE CODE REPOSITORY
 
-0.20
+L<https://github.com/perlmol/Chemistry-Ring>
 
 =head1 SEE ALSO
 
-L<Chemistry::Ring>, L<http://www.perlmol.org>.
+L<Chemistry::Ring>
 
 =head1 AUTHOR
 
@@ -342,4 +342,3 @@ free software; you can redistribute it and/or modify it under the same terms as
 Perl itself.
 
 =cut
-
