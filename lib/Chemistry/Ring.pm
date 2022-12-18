@@ -101,8 +101,8 @@ sub centroid {
     my $c = O; # origin
     my $n = 0;
     for my $a ($self->atoms) {
-	$c += $a->coords;
-	++$n;
+        $c += $a->coords;
+        ++$n;
     }
     $c = $c / $n; 
 }
